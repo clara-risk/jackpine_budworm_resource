@@ -21,6 +21,8 @@
 
 
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.js'></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+    <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
 	
 </head>
 <body>   
@@ -28,7 +30,7 @@
 <div id="map"></div>
 
 <div id="county-legend" class="legend2">
-<h4>Year of Mortality</h4>
+<h4>Year of Event</h4>
 <div><span style="background-color: #F44336"></span>2021</div>
 <div><span style="background-color: #E91E63"></span>2020</div>
 <div><span style="background-color: #9C27B0"></span>2019</div>
@@ -38,20 +40,32 @@
 <div><span style="background-color: #FFA726"></span>2013</div>
 <div><span style="background-color: #CDDC39"></span>2012</div>
 <div><span style="background-color: #FF7043"></span>2011</div>
+<div><span style="background-color: #795548"></span>2010</div>
 <div><span style="background-color: #FFC107"></span>2009</div>
 </div>
 
-<div class="map-overlay top"> 
-<div class="map-overlay-inner"> 
-<div id="legend" class="legend">
-<div id="distance" class="distance-container"></div>
-<!-- <div class="bar"></div> --> 
-<div><h5>Created with data from the Government of Ontario (Land Information Ontario) (study area), and Beaudoin et al. (2014): https://doi.org/10.1139/cjfr-2013-0401. Map created with Mapbox GL JS.<h5></div> 
-</div>
-</div>
+
+<div class="topbanner"> 
+    <div class="infobutton">i
+        <h5 class="infotooltip">Created with data from the Government of Ontario (Land Information Ontario), MDMNRF, & CFS, and Beaudoin et al. (2014): https://doi.org/10.1139/cjfr-2013-0401. Map created with Mapbox GL JS.
+		Potential sites for fieldwork outlined in black (rectangles). These are locations with stand age >= 30 years and jack pine abundance >= 50% in 2014. 3-year cumulative defoliation represents at least 3 years of moderate-to-severe defoliation at that location.<h5>
+    </div> 
+    
+    <div class="dropdownMenu">
+        <button class="dropdownButton" onclick="displaySelectionMenu()">Select layer
+            <i id = "arrow" class="arrow-down"></i>
+        </button>
+        <nav id="menu"></nav>  
+    </div>
+
+    <div id="coordinateBox" onclick=copyCoordsToClipBoard()>
+        <pre id= "coords">James Lab Jackpine Budworm Web Map</pre>
+    </div>
+        
+    <div id="distance" class="distance-container"></div>
 </div>
 
-<nav id="menu"></nav>  
+<!-- <div class="bar"></div> --> 
 <!-- <nav id="tstamp"></nav> --> 
 
 	<!-- <div id='info'><h2>Zoom in to see more detailed forest stand information<br>and click to see stand type</h2></div> -->
@@ -67,5 +81,4 @@
 
  
 <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
-
 </html>
